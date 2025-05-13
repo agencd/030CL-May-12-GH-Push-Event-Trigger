@@ -5,7 +5,7 @@ name: Push Event Trigger Example
 # Controls when the workflow will run
 on:
   schedule:
-    - cron: '12 21 * * *' # every day at 9:12pm EST
+    - cron: '*/5 * * * *' # every 5 minutes of every hour every day
   push:
     branches: [ main ]
   workflow_dispatch:
