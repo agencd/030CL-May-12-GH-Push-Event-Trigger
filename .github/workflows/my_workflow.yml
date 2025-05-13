@@ -4,6 +4,8 @@ name: Push Event Trigger Example
 
 # Controls when the workflow will run
 on:
+  schedule:
+    - cron: '12 21 * * *' # every day at 9:12pm EST
   push:
     branches: [ main ]
   workflow_dispatch:
@@ -65,7 +67,7 @@ jobs:
         run: terraform apply tfplan
 
       - name: Terraform destroy
-        if: ${{ inputs.run_destroy }}
+        if: ${{ inputs.run_destroy || github.event_name == 'schedule' }}
         run: terraform destroy -auto-approve -var-file ${{ inputs.environment }}.tfvars
 
       
